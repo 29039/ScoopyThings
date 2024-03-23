@@ -1,8 +1,5 @@
+# config
 $scoopdir = "$env:USERPROFILE\scoop"
-
-$modifiedPaths = Get-ChildItem -Path $scoopdir -Directory -Filter .git -Recurse -Force | ForEach-Object {
-    ($_.FullName -replace '\\.git$', '') -replace '\\', '/'
-}
 
 function Get-IniContent {
     param (
@@ -33,6 +30,11 @@ function Get-IniContent {
     }
 
     $iniContent
+}
+
+# Change path backslashes to forward slashes
+$modifiedPaths = Get-ChildItem -Path $scoopdir -Directory -Filter .git -Recurse -Force | ForEach-Object {
+    ($_.FullName -replace '\\.git$', '') -replace '\\', '/'
 }
 
 $gitConfigFile = Join-Path $scoopdir 'apps\git\current\etc\gitconfig'
